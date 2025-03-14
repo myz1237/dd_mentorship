@@ -11,11 +11,6 @@ interface MessageRunOptions {
 
 type RunFunction = (options: MessageRunOptions) => unknown;
 
-export const MessageCommandRegExp = new RegExp(
-	`^${staticConfig.msgCmdPrefix}\\s+([a-zA-Z]+)(?:\\s+([A-Za-z0-9_.:/-]+))?`,
-	'i'
-);
-
 export enum MessageCommandEnum {
 	test = 'test'
 }
