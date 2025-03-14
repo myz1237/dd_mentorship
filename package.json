@@ -1,0 +1,46 @@
+{
+	"name": "mentorship-tool",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node ./dist/index.js",
+		"dev": "nodemon",
+		"build": "tsc",
+		"watch": "tsc -w",
+		"eslint": "eslint src --ext .ts",
+		"deploy": "rm -rf dist && npm install && npm run generate && npm run build && ((pm2 delete mentorship-tool && pm2 start pm2.config.js) || pm2 start pm2.config.js)"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@types/glob": "^8.0.0",
+		"@types/lodash": "^4.14.197",
+		"@types/sprintf-js": "^1.1.2",
+		"ascii-table3": "^0.9.0",
+		"discord-api-types": "^0.37.19",
+		"discord.js": "^14.14.0",
+		"dotenv": "^16.0.3",
+		"fp-ts": "^2.16.9",
+		"glob": "^8.0.3",
+		"lodash": "^4.17.21",
+		"neverthrow": "^6.0.0",
+		"node-cache": "^5.1.2",
+		"pino": "^8.6.1",
+		"pino-pretty": "^9.1.1",
+		"sprintf-js": "^1.1.2",
+		"ts-node": "^10.9.2",
+		"tslib": "^2.8.1",
+		"typescript": "^5.7.3"
+	},
+	"devDependencies": {
+		"@eslint/compat": "^1.1.1",
+		"eslint": "^9.9.0",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"nodemon": "^3.1.4",
+		"prettier": "^3.3.3",
+		"typescript-eslint": "^8.1.0"
+	}
+}

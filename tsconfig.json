@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"utils/*": ["utils/*"],
+			"types/*": ["types/*"],
+			"structures/*": ["structures/*"],
+			"prisma/*": ["prisma/*"]
+		},
+		"lib": ["ES2021"],
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"target": "ES2021",
+		"outDir": "dist",
+		"sourceMap": false,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"resolveJsonModule": true,
+		"importHelpers": true,
+		"allowJs": false,
+		"removeComments": true,
+		"strictNullChecks": true,
+	},
+	"include": ["src/**/*", "eslint.js"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
+}
