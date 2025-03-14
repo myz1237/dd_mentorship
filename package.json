@@ -9,7 +9,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"eslint": "eslint src --ext .ts",
-		"deploy": "rm -rf dist && npm install && npm run generate && npm run build && ((pm2 delete mentorship-tool && pm2 start pm2.config.js) || pm2 start pm2.config.js)"
+		"deploy": "rm -rf dist && pnpm install && pnpm run generate && pnpm run build && ((pm2 delete mentorship-tool && pm2 start pm2.config.js) || pm2 start pm2.config.js)"
 	},
 	"keywords": [],
 	"author": "",
