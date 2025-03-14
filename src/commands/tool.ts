@@ -4,6 +4,7 @@ import { Command } from 'structures/Command';
 import { CommandNameEnum } from 'types/Command';
 import * as TE from 'fp-ts/TaskEither';
 import _ from 'lodash';
+import { DiscordBotError } from 'utils/error';
 
 export default new Command({
 	name: CommandNameEnum.MentorshipTool,
@@ -36,7 +37,6 @@ export default new Command({
 			const realMember = [...memberCollection.values()].filter(
 				(m) => !m.user.bot && !excludeDiscordId.includes(m.id)
 			);
-			const chunks = _.chunk(realMember, 20);
 			const result = {
 				success: 0,
 				failToCreateDM: 0,
@@ -46,7 +46,7 @@ export default new Command({
 
 I'm excited to announce that the **Developer DAO Mentorship Programme** is getting ready for **Season 3**, and we'd love to hear from you!
 
-If you're interested in participating as a mentor, mentee, or sponsor/partner, please fill out the quick interest form. You can find the form in the #mentorship-welcome channel in the Developer DAO Discord server.
+If you're interested in participating as a mentor, mentee, or sponsor/partner, please fill out the quick interest form. You can find the form in the <#1349405197516013642> channel in the Developer DAO Discord server.
 
 Your input will help us make the programme a success.
 
@@ -61,7 +61,10 @@ Thank you for being part of the Developer DAO community.
 				pipe(
 					TE.tryCatch(
 						() => member.createDM(),
-						() => ++result.failToCreateDM
+						(e) => {
+							console.log('fail to create DM ', DiscordBotError.getErrorMessage(e));
+							return ++result.failToCreateDM;
+						}
 					),
 					TE.chain((dmChannel) =>
 						TE.tryCatch(
@@ -69,7 +72,13 @@ Thank you for being part of the Developer DAO community.
 								dmChannel.send({
 									content: message
 								}),
-							() => ++result.failToSendMessage
+							(e) => {
+								console.log(
+									'fail to send message ',
+									DiscordBotError.getErrorMessage(e)
+								);
+								return ++result.failToSendMessage;
+							}
 						)
 					),
 					TE.map(() => ++result.success)
@@ -78,10 +87,9 @@ Thank you for being part of the Developer DAO community.
 				content: `Sending message to ${realMember.length} members...`
 			});
 
-			for (const chunk of chunks) {
+			for (const eachMember of realMember) {
 				await new Promise((r) => setTimeout(r, 15000));
-				const ps = chunk.map((m) => action(m)());
-				await Promise.all(ps);
+				await action(eachMember)();
 			}
 
 			return interaction.editReply({
